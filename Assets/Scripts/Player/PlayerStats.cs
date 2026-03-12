@@ -13,9 +13,10 @@ public class PlayerStats : MonoBehaviour
     private int _maxMp;
     private int _damage;
     private int _push;
+    private int _manaRegen;
     public int CurHp { get { return _curHp; } set { _curHp = value; _changeHp?.Invoke(); } }
     public int MaxHp { get { return _maxHp; } }
-    public int CurMp { get { return _curMp; } set { _curHp = value; _changeMp?.Invoke(); } }
+    public int CurMp { get { return _curMp; } set { _curMp = value; _changeMp?.Invoke(); } }
     public int MaxMp { get { return _maxMp; } }
     public int Damage { get { return _damage; } }
     public int Push { get { return _push; } }
@@ -48,8 +49,15 @@ public class PlayerStats : MonoBehaviour
         _maxMp = 40;
         _damage = 3;
         _push = 1;
+        _manaRegen = 1;
         _changeHp?.Invoke();
         _changeMp?.Invoke();
+    }
+
+    public void GetMana()
+    {
+        CurMp += _manaRegen;
+        if (CurMp > MaxMp) CurMp = MaxMp;
     }
 
     public void TakeDamage()

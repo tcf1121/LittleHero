@@ -21,5 +21,6 @@ public class DamageRange : MonoBehaviour
     private void SuccessAtttack(Monster target)
     {
         target.GetDamage(player.PlayerStats.Damage);
+        player.PlayerStats.GetMana();
     }
 }

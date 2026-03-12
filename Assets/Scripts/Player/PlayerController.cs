@@ -197,4 +197,16 @@ public class PlayerController : MonoBehaviour
         StopCoroutine(_attackCor);
         _attackCor = null;
     }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Monster"))
+        {
+            if (!_isParrying)
+            {
+                player.Rigid.velocity = Vector2.zero;
+                Debug.Log("몬스터와 분리됨: 관성 제거");
+            }
+        }
+    }
 }
