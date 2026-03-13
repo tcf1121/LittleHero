@@ -55,6 +55,14 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(ParryCoroutine());
     }
 
+    public void Parrying()
+    {
+        Debug.Log("막기");
+        StopAllCoroutines();
+        if (_isParrying) return;
+        StartCoroutine(ParryCoroutine());
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

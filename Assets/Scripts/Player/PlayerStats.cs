@@ -62,31 +62,33 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage()
     {
-        if (_damageCor == null)
-        {
-            _damageCor = StartCoroutine(DamageCoroutine());
-        }
-    }
-
-    public IEnumerator DamageCoroutine()
-    {
-        float currentTime = 1f;
-        float oldHp = CurHp;
         CurHp--;
-
-
         if (CurHp <= 0)
         {
             _isDead.Invoke();
         }
-        while (currentTime > 0.0f)
+        else
         {
-            currentTime -= Time.deltaTime;
-            yield return new WaitForFixedUpdate();
+            player.PlayerUI.TakeDamage();
         }
-        StopCoroutine(_damageCor);
-        _damageCor = null;
     }
+
+    // public IEnumerator DamageCoroutine()
+    // {
+    //     float currentTime = 1f;
+    //     float oldHp = CurHp;
+
+
+
+
+    //     while (currentTime > 0.0f)
+    //     {
+    //         currentTime -= Time.deltaTime;
+    //         yield return new WaitForFixedUpdate();
+    //     }
+    //     StopCoroutine(_damageCor);
+    //     _damageCor = null;
+    // }
 
     void OnTriggerEnter2D(Collider2D collision)
     {

@@ -13,6 +13,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private Image _fillMp;
     [SerializeField] private TMP_Text _maxMpText;
     [SerializeField] private TMP_Text _curMpText;
+    [SerializeField] private GameObject _damageUI;
 
 
     public void SetHp(int currentHp, int maxHp)
@@ -27,5 +28,10 @@ public class PlayerUI : MonoBehaviour
         _curMpText.text = currentMp.ToString();
         _maxMpText.text = maxMp.ToString();
         _fillMp.fillAmount = (float)currentMp / maxMp;
+    }
+
+    public void TakeDamage()
+    {
+        _damageUI.SetActive(true);
     }
 }
