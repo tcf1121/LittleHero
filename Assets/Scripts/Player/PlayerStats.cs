@@ -23,13 +23,11 @@ public class PlayerStats : MonoBehaviour
     private UnityAction _changeHp;
     private UnityAction _changeMp;
     private UnityAction _isDead;
-    private Coroutine _damageCor;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GetComponent<Player>();
-        _damageCor = null;
         _changeHp += SetHp;
         _changeMp += SetMp;
         _isDead += InGameManager.Instance.StageFail;

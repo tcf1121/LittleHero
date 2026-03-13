@@ -9,13 +9,8 @@ public class Inventory : MonoBehaviour
     [SerializeField] private List<EquipmentData> _shield;
     [SerializeField] private List<EquipmentData> _weapon;
 
-    private List<int> _equippedNum = new(4);
+    private int[] _equippedNum = new int[4];
     private PlayerStat _equippedStat = new();
-
-    void Start()
-    {
-        for (int i = 0; i < 4; i++) { _equippedNum[i] = 0; }
-    }
 
     public void Equip(EquipmentData equipment)
     {
@@ -48,6 +43,7 @@ public class Inventory : MonoBehaviour
             default:
                 break;
         }
+        GameManager.Instance.RefreshEquip.Invoke(equipment);
     }
 
     public void GetItem(EquipmentData equipment)
@@ -74,5 +70,14 @@ public class Inventory : MonoBehaviour
     public PlayerStat GetStat()
     {
         return _equippedStat;
+    }
+
+    public List<EquipmentData> GetEquipList(int index)
+    {
+        if (index == 0) return _head;
+        else if (index == 1) return _armor;
+        else if (index == 2) return _shield;
+        else return _weapon;
+
     }
 }

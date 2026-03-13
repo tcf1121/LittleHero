@@ -18,3 +18,4 @@ MonoBehaviour:
   Effect: 7
   Equipped: 0
   Get: 0
+  EquipSprite: {fileID: 21300000, guid: 52ba1e07069a5ef418f048bab4b3372e, type: 3}

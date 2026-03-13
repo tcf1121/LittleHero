@@ -11,6 +11,9 @@ public class EquipmentData : ScriptableObject
     public int Effect;
     public bool Equipped = false;
     public bool Get = false;
+
+    [Header("Visual Settings")]
+    public Sprite EquipSprite;
 }
 
 public enum EquipmentType

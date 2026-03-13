@@ -19,7 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<StageData> _stages;
 
     public int CurrentStage;
-
+    public UnityAction<EquipmentData> Installing;
+    public UnityAction<EquipmentData> RefreshEquip;
 
     void Awake()
     {
@@ -32,7 +33,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        Installing += Equipped;
     }
 
 
@@ -46,4 +47,13 @@ public class GameManager : MonoBehaviour
         return _inventory.GetStat();
     }
 
+    private void Equipped(EquipmentData equipment)
+    {
+        _inventory.Equip(equipment);
+    }
+
+    public List<EquipmentData> GetEquipList(int index)
+    {
+        return _inventory.GetEquipList(index);
+    }
 }

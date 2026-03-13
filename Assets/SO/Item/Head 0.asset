@@ -16,5 +16,6 @@ MonoBehaviour:
   EquipName: 
   EquipNum: 0
   Effect: 0
-  Equipped: 0
-  Get: 0
+  Equipped: 1
+  Get: 1
+  EquipSprite: {fileID: 21300000, guid: c259b6f6cc3d1af439991000aacd6525, type: 3}
