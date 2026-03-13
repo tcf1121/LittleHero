@@ -44,13 +44,14 @@ public class PlayerStats : MonoBehaviour
 
     private void GetStats()
     {
-        _maxHp = 3;
+        PlayerStat stat = GameManager.Instance.GetStat();
+        _maxHp = 3 + stat.Hp;
         _curHp = _maxHp;
         _curMp = 0;
         _maxMp = 40;
-        _damage = 3;
-        _push = 1;
-        _manaRegen = 1;
+        _damage = 3 + stat.Damage;
+        _push = 1 + stat.Push;
+        _manaRegen = 1 + stat.MpRegen;
         _changeHp?.Invoke();
         _changeMp?.Invoke();
     }

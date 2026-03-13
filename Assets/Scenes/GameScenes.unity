@@ -132,6 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 74183737}
   - component: {fileID: 74183738}
+  - component: {fileID: 74183739}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -169,6 +170,46 @@ MonoBehaviour:
   StageMonsterNum: 0
   _monterNumUI: {fileID: 1114724445}
   _finUI: {fileID: 895976032}
+--- !u!114 &74183739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74183736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e4caff3e59654f45b4c4e303faf6672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _head:
+  - {fileID: 11400000, guid: b83c8a5dddd735b4a81f960be31e1dfd, type: 2}
+  - {fileID: 11400000, guid: 602d558483cd31847a9b937e77082e44, type: 2}
+  - {fileID: 11400000, guid: 7a6f01ef0b5f97f4c959e0f1cadb378d, type: 2}
+  - {fileID: 11400000, guid: 483018c920c38a64a8caac633d662d99, type: 2}
+  - {fileID: 11400000, guid: 16ec5ce7651bc33439cbe740bade1954, type: 2}
+  - {fileID: 11400000, guid: 7b8e558b1d4fd2341a294c1e9d7f585a, type: 2}
+  _armor:
+  - {fileID: 11400000, guid: 003764c7b014b254ea7d69ca81792f74, type: 2}
+  - {fileID: 11400000, guid: c373fc315c458f54b8626c00b70a406e, type: 2}
+  - {fileID: 11400000, guid: 9e62660723781c64eb357a04283623a8, type: 2}
+  - {fileID: 11400000, guid: e3b8a1d2953982d4988fb0baf43e1b7d, type: 2}
+  - {fileID: 11400000, guid: 2e668acc68dae2b46a9118142ca1bfd1, type: 2}
+  - {fileID: 11400000, guid: 9879796d07715e14eb632c45b6671ce5, type: 2}
+  _shield:
+  - {fileID: 11400000, guid: 744fa789aa50d1d4794168dfe7bed735, type: 2}
+  - {fileID: 11400000, guid: 07f2de116d2b1c2449e57ba7747b8b36, type: 2}
+  - {fileID: 11400000, guid: 98d722af686e84546af199b7c72fb281, type: 2}
+  - {fileID: 11400000, guid: 0f6e693aa5fcf774db0b9143bfedbbfd, type: 2}
+  - {fileID: 11400000, guid: 628f65749fcbfec469584f7c5c33f0a8, type: 2}
+  - {fileID: 11400000, guid: e517da94afcebd644ae3fb05a1f2ee6c, type: 2}
+  _weapon:
+  - {fileID: 11400000, guid: 2d203e171b52c3441b31f4d7a425e173, type: 2}
+  - {fileID: 11400000, guid: 3faa957d1efc4cd44a2c07abe10be80c, type: 2}
+  - {fileID: 11400000, guid: 3f6d2251c592eed43bc9b572a17fbca2, type: 2}
+  - {fileID: 11400000, guid: afed3e3be921975418315f66aef2ced7, type: 2}
+  - {fileID: 11400000, guid: 3bb8b61846b8c2643bfb463536828b37, type: 2}
+  - {fileID: 11400000, guid: 21cfd0e56069b674095b2a2b880832ce, type: 2}
 --- !u!1 &196927792
 GameObject:
   m_ObjectHideFlags: 0
@@ -3744,6 +3785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9719496abb4c40c41a971f71a6c1bf25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inventory: {fileID: 0}
   _stages:
   - {fileID: 11400000, guid: 96c53c1668ee5754e8a1030bd1021ec0, type: 2}
   - {fileID: 11400000, guid: a78d6a92ccc4b8747be65a3628661015, type: 2}

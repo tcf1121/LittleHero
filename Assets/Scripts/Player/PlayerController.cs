@@ -57,7 +57,8 @@ public class PlayerController : MonoBehaviour
 
     public void Parrying()
     {
-        Debug.Log("막기");
+        Debug.Log("처절한 막기");
+        transform.position = new Vector3(-7.5f, 0, 0);
         StopAllCoroutines();
         if (_isParrying) return;
         StartCoroutine(ParryCoroutine());

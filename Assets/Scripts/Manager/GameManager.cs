@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    [SerializeField] private Inventory _inventory;
     [SerializeField] private List<StageData> _stages;
 
     public int CurrentStage;
@@ -40,5 +41,9 @@ public class GameManager : MonoBehaviour
         return _stages[CurrentStage];
     }
 
+    public PlayerStat GetStat()
+    {
+        return _inventory.GetStat();
+    }
 
 }
