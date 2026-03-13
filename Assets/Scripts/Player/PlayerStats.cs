@@ -32,6 +32,7 @@ public class PlayerStats : MonoBehaviour
         _damageCor = null;
         _changeHp += SetHp;
         _changeMp += SetMp;
+        _isDead += InGameManager.Instance.StageFail;
         GetStats();
     }
 
@@ -60,6 +61,16 @@ public class PlayerStats : MonoBehaviour
         if (CurMp > MaxMp) CurMp = MaxMp;
     }
 
+    public bool CheckMana(int mana)
+    {
+        return CurMp >= mana;
+    }
+
+    public void UseMana(int mana)
+    {
+        CurMp -= mana;
+    }
+
     public void TakeDamage()
     {
         CurHp--;
@@ -72,23 +83,6 @@ public class PlayerStats : MonoBehaviour
             player.PlayerUI.TakeDamage();
         }
     }
-
-    // public IEnumerator DamageCoroutine()
-    // {
-    //     float currentTime = 1f;
-    //     float oldHp = CurHp;
-
-
-
-
-    //     while (currentTime > 0.0f)
-    //     {
-    //         currentTime -= Time.deltaTime;
-    //         yield return new WaitForFixedUpdate();
-    //     }
-    //     StopCoroutine(_damageCor);
-    //     _damageCor = null;
-    // }
 
     void OnTriggerEnter2D(Collider2D collision)
     {

@@ -63,6 +63,43 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(ParryCoroutine());
     }
 
+    private void OnSkill1()
+    {
+        if (player.PlayerStats.CheckMana(10))
+        {
+            Debug.Log("스킬 1 사용");
+            player.PlayerStats.UseMana(10);
+        }
+    }
+
+    private void OnSkill2()
+    {
+        if (player.PlayerStats.CheckMana(20))
+        {
+            Debug.Log("스킬 2 사용");
+            player.PlayerStats.UseMana(20);
+        }
+    }
+
+
+    private void OnSkill3()
+    {
+        if (player.PlayerStats.CheckMana(30))
+        {
+            Debug.Log("스킬 3 사용");
+            player.PlayerStats.UseMana(30);
+        }
+    }
+
+    private void OnSkill4()
+    {
+        if (player.PlayerStats.CheckMana(20))
+        {
+            Debug.Log("스킬 4 사용");
+            player.PlayerStats.UseMana(20);
+        }
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
