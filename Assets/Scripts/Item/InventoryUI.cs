@@ -16,10 +16,10 @@ public class InventoryUI : MonoBehaviour
 
     void OnEnable()
     {
-        GenerateList(_headEquipBtns, GameManager.Instance.GetEquipList(0));
-        GenerateList(_armorEquipBtns, GameManager.Instance.GetEquipList(1));
-        GenerateList(_shieldEquipBtns, GameManager.Instance.GetEquipList(2));
-        GenerateList(_weaponEquipBtns, GameManager.Instance.GetEquipList(3));
+        GenerateList(_headEquipBtns, GameManager.Instance.Inventory.GetEquipList(0));
+        GenerateList(_armorEquipBtns, GameManager.Instance.Inventory.GetEquipList(1));
+        GenerateList(_shieldEquipBtns, GameManager.Instance.Inventory.GetEquipList(2));
+        GenerateList(_weaponEquipBtns, GameManager.Instance.Inventory.GetEquipList(3));
     }
 
     private void GenerateList(List<EquipBtn> equipBtns, List<EquipmentData> equipment)
@@ -35,16 +35,16 @@ public class InventoryUI : MonoBehaviour
         switch (equipment.equipType)
         {
             case EquipmentType.Head:
-                GenerateList(_headEquipBtns, GameManager.Instance.GetEquipList(0));
+                GenerateList(_headEquipBtns, GameManager.Instance.Inventory.GetEquipList(0));
                 break;
             case EquipmentType.Armor:
-                GenerateList(_armorEquipBtns, GameManager.Instance.GetEquipList(1));
+                GenerateList(_armorEquipBtns, GameManager.Instance.Inventory.GetEquipList(1));
                 break;
             case EquipmentType.Shield:
-                GenerateList(_shieldEquipBtns, GameManager.Instance.GetEquipList(2));
+                GenerateList(_shieldEquipBtns, GameManager.Instance.Inventory.GetEquipList(2));
                 break;
             case EquipmentType.Weapon:
-                GenerateList(_weaponEquipBtns, GameManager.Instance.GetEquipList(3));
+                GenerateList(_weaponEquipBtns, GameManager.Instance.Inventory.GetEquipList(3));
                 break;
             default:
                 break;

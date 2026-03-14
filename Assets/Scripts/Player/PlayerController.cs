@@ -244,6 +244,7 @@ public class PlayerController : MonoBehaviour
         _attackCor = null;
     }
 
+    // 몬스터와 떨어지면 물리력 제거
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Monster"))
@@ -251,7 +252,6 @@ public class PlayerController : MonoBehaviour
             if (!_isParrying)
             {
                 player.Rigid.velocity = Vector2.zero;
-                Debug.Log("몬스터와 분리됨: 관성 제거");
             }
         }
     }

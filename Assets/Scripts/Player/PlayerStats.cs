@@ -22,7 +22,7 @@ public class PlayerStats : MonoBehaviour
     public int Push { get { return _push; } }
     private UnityAction _changeHp;
     private UnityAction _changeMp;
-    private UnityAction _isDead;
+    private UnityAction<bool> _isDead;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +30,7 @@ public class PlayerStats : MonoBehaviour
         player = GetComponent<Player>();
         _changeHp += SetHp;
         _changeMp += SetMp;
-        _isDead += InGameManager.Instance.StageFail;
+        _isDead += InGameManager.Instance.ShowFinUI;
         GetStats();
     }
 
@@ -42,7 +42,7 @@ public class PlayerStats : MonoBehaviour
 
     private void GetStats()
     {
-        PlayerStat stat = GameManager.Instance.GetStat();
+        PlayerStat stat = GameManager.Instance.Inventory.GetStat();
         _maxHp = 3 + stat.Hp;
         _curHp = _maxHp;
         _curMp = 0;
@@ -75,7 +75,7 @@ public class PlayerStats : MonoBehaviour
         CurHp--;
         if (CurHp <= 0)
         {
-            _isDead.Invoke();
+            _isDead.Invoke(false);
         }
         else
         {

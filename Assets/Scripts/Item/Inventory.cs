@@ -46,24 +46,24 @@ public class Inventory : MonoBehaviour
         GameManager.Instance.RefreshEquip.Invoke(equipment);
     }
 
-    public void GetItem(EquipmentData equipment)
+    public EquipmentData GetItem(EquipmentType equipment, int index)
     {
-        switch (equipment.equipType)
+        switch (equipment)
         {
             case EquipmentType.Head:
-                _head[equipment.EquipNum].Get = true;
-                break;
+                _head[index].Get = true;
+                return _head[index];
             case EquipmentType.Armor:
-                _armor[equipment.EquipNum].Get = true;
-                break;
+                _armor[index].Get = true;
+                return _armor[index];
             case EquipmentType.Shield:
-                _shield[equipment.EquipNum].Get = true;
-                break;
+                _shield[index].Get = true;
+                return _shield[index];
             case EquipmentType.Weapon:
-                _weapon[equipment.EquipNum].Get = true;
-                break;
+                _weapon[index].Get = true;
+                return _weapon[index];
             default:
-                break;
+                return null;
         }
     }
 

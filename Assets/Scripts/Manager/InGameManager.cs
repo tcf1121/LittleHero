@@ -8,8 +8,10 @@ public class InGameManager : MonoBehaviour
 {
     public static InGameManager Instance;
     public int StageMonsterNum;
+    public int ChestNum;
     public UnityAction DieMonster;
     [SerializeField] private TMP_Text _monterNumUI;
+    [SerializeField] private TMP_Text _chestNumUI;
     [SerializeField] private FinUI _finUI;
 
     // Start is called before the first frame update
@@ -19,6 +21,7 @@ public class InGameManager : MonoBehaviour
         Instance = this;
         DieMonster += CheckMonster;
         StageMonsterNum = 0;
+        ChestNum = 0;
     }
 
     public void SetMonNum()
@@ -26,19 +29,19 @@ public class InGameManager : MonoBehaviour
         _monterNumUI.text = StageMonsterNum.ToString();
     }
 
-    public void StageClear()
+    public void DropChest(GameObject chest)
     {
-        Time.timeScale = 0f;
-        GameManager.Instance.CurrentStage++;
-        _finUI.gameObject.SetActive(true);
-        _finUI.SetFin(true);
+        ChestNum++;
     }
 
-    public void StageFail()
+    public void ShowFinUI(bool clear)
     {
+        if (clear) GameManager.Instance.CurrentStage++;
         Time.timeScale = 0f;
         _finUI.gameObject.SetActive(true);
-        _finUI.SetFin(false);
+        _chestNumUI.text = ChestNum.ToString();
+        _finUI.SetFin(clear);
+        GameManager.Instance.Chest.GetChest(ChestNum);
     }
 
     private void CheckMonster()
@@ -47,7 +50,7 @@ public class InGameManager : MonoBehaviour
         _monterNumUI.text = StageMonsterNum.ToString();
         if (StageMonsterNum <= 0)
         {
-            StageClear();
+            ShowFinUI(true);
         }
     }
 }

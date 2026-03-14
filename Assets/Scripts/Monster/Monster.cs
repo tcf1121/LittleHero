@@ -18,6 +18,7 @@ public class Monster : MonoBehaviour
     private int _curHp;
     private UnityAction _isDead;
     private bool _isKnockbacking = false;
+    private Vector3 chestPos;
 
     void Awake()
     {
@@ -31,6 +32,7 @@ public class Monster : MonoBehaviour
         _rigid.freezeRotation = true;
         _rigid.drag = 7f;
         _rigid.bodyType = RigidbodyType2D.Kinematic;
+        chestPos = new Vector3(0, 0.7f, 0);
     }
 
     public void Init(MonsterData data)
@@ -89,6 +91,7 @@ public class Monster : MonoBehaviour
     private void Die()
     {
         InGameManager.Instance.DieMonster?.Invoke();
+        DropChest();
         gameObject.SetActive(false);
     }
 
@@ -139,4 +142,30 @@ public class Monster : MonoBehaviour
         return _monsterType;
     }
 
+
+    public void DropChest()
+    {
+        int looting = 5;
+        switch (_monsterType)
+        {
+            case MonsterType.Normal:
+                looting = 5;
+                break;
+            case MonsterType.Elite:
+                looting = 10;
+                break;
+            case MonsterType.Boss:
+                looting = 100;
+                break;
+        }
+
+        bool drop = Random.Range(0, 100) < looting;
+
+        if (drop)
+        {
+            GameObject chest = ChestPool.Instance.Get();
+            chest.transform.position = transform.position + chestPos;
+            chest.SetActive(true);
+        }
+    }
 }

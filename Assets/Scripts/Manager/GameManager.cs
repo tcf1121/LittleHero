@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     }
 
     [SerializeField] private Inventory _inventory;
+    public Inventory Inventory { get { return _inventory; } }
+    [SerializeField] private Chest _chest;
+    public Chest Chest { get { return _chest; } }
     [SerializeField] private List<StageData> _stages;
 
     public int CurrentStage;
@@ -33,27 +36,12 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        Installing += Equipped;
+        Installing += _inventory.Equip;
     }
 
 
     public StageData GetStage()
     {
         return _stages[CurrentStage];
-    }
-
-    public PlayerStat GetStat()
-    {
-        return _inventory.GetStat();
-    }
-
-    private void Equipped(EquipmentData equipment)
-    {
-        _inventory.Equip(equipment);
-    }
-
-    public List<EquipmentData> GetEquipList(int index)
-    {
-        return _inventory.GetEquipList(index);
     }
 }
