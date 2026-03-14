@@ -9,23 +9,29 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Monster : MonoBehaviour
 {
+    [SerializeField] private Material _whiteFlashMat;
     [SerializeField] private MonsterType _monsterType;
     [SerializeField] private int _maxHp;
     [SerializeField] private float _moveSpeed;
     private BoxCollider2D _collider;
     private Rigidbody2D _rigid;
     private SpriteRenderer _spriteRenderer;
+    public SpriteRenderer SpriteRenderer { get { return _spriteRenderer; } }
+    private Material _originalMat;
     private int _curHp;
     private UnityAction _isDead;
     private bool _isKnockbacking = false;
     private Vector3 chestPos;
+    private Coroutine _flashCor;
+
+    private List<IBossPattern> _cachedPatterns = new List<IBossPattern>();
 
     void Awake()
     {
         _collider = GetComponent<BoxCollider2D>();
         _rigid = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-
+        _originalMat = _spriteRenderer.material;
         _isDead += Die;
 
         _rigid.gravityScale = 0;
@@ -33,6 +39,13 @@ public class Monster : MonoBehaviour
         _rigid.drag = 7f;
         _rigid.bodyType = RigidbodyType2D.Kinematic;
         chestPos = new Vector3(0, 0.7f, 0);
+
+        var patterns = GetComponents<IBossPattern>();
+        foreach (var p in patterns)
+        {
+            _cachedPatterns.Add(p);
+            (p as MonoBehaviour).enabled = false;
+        }
     }
 
     public void Init(MonsterData data)
@@ -62,6 +75,22 @@ public class Monster : MonoBehaviour
         {
             _collider.offset = data.colliderOffset;
             _collider.size = data.colliderSize;
+        }
+
+        foreach (var p in _cachedPatterns)
+        {
+            p.OnDespawn();
+            (p as MonoBehaviour).enabled = false;
+        }
+
+        foreach (var p in _cachedPatterns)
+        {
+            if (p.GetType().Name.Contains(data.monsterName))
+            {
+                (p as MonoBehaviour).enabled = true;
+                p.OnSpawn();
+                break;
+            }
         }
     }
 
@@ -95,13 +124,26 @@ public class Monster : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    // 피해 입었을 때 
     public void GetDamage(int damage)
     {
         _curHp -= damage;
+        if (_flashCor != null) StopCoroutine(_flashCor);
+        _flashCor = StartCoroutine(HitFlashRoutine());
         if (_curHp <= 0)
         {
             _isDead?.Invoke();
         }
+    }
+
+    // 흰색으로 번쩍이는 효과
+
+    private IEnumerator HitFlashRoutine()
+    {
+        _spriteRenderer.material = _whiteFlashMat;
+        yield return new WaitForSeconds(0.05f);
+        _spriteRenderer.material = _originalMat;
+        _flashCor = null;
     }
 
     public void Knockback(int push)
@@ -167,5 +209,16 @@ public class Monster : MonoBehaviour
             chest.transform.position = transform.position + chestPos;
             chest.SetActive(true);
         }
+    }
+
+    public void SetMoveSpeed(float newSpeed)
+    {
+        _moveSpeed = newSpeed;
+    }
+
+    public float GetInitialMoveSpeed()
+    {
+        // 필요하다면 SO 데이터에서 원래 속도를 가져올 수 있습니다.
+        return _moveSpeed;
     }
 }

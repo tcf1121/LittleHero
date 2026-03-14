@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 6672263557019866484}
   - component: {fileID: 9149553691854253670}
   - component: {fileID: 2411087448765438381}
+  - component: {fileID: 3013895632913796314}
+  - component: {fileID: 8131167246159477472}
   m_Layer: 6
   m_Name: BaseMonster
   m_TagString: Monster
@@ -171,6 +173,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ef338aa368b63b4b94fddf8b8b3ee67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _whiteFlashMat: {fileID: 2100000, guid: 2467c4ac5f1799144bd7f982faacab5b, type: 2}
   _monsterType: 0
   _maxHp: 15
-  moveSpeed: 1
+  _moveSpeed: 0
+--- !u!114 &3013895632913796314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499404786297886358}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de3caecef6c42e04d81f9b96f6a8efc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8131167246159477472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499404786297886358}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8880c921034a7714dbd2dcaed0d94cd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

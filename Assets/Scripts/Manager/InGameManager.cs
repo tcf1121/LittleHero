@@ -29,13 +29,19 @@ public class InGameManager : MonoBehaviour
         _monterNumUI.text = StageMonsterNum.ToString();
     }
 
-    public void DropChest(GameObject chest)
+    public void DropChest()
     {
         ChestNum++;
     }
 
     public void ShowFinUI(bool clear)
     {
+        StartCoroutine(WaitCor(clear));
+    }
+
+    private IEnumerator WaitCor(bool clear)
+    {
+        yield return new WaitForSeconds(0.5f);
         if (clear) GameManager.Instance.CurrentStage++;
         Time.timeScale = 0f;
         _finUI.gameObject.SetActive(true);

@@ -1,10 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class DamageRange : MonoBehaviour
 {
     [SerializeField] private Player player;
+    private CinemachineImpulseSource _impulseSource;
+    private bool _hasShaked = false;
+    void Awake()
+    {
+        _impulseSource = GetComponent<CinemachineImpulseSource>();
+    }
+
+    void LateUpdate()
+    {
+        _hasShaked = false;
+    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -22,5 +32,10 @@ public class DamageRange : MonoBehaviour
     {
         target.GetDamage(player.PlayerStats.Damage);
         player.PlayerStats.GetMana();
+        if (_impulseSource != null && !_hasShaked)
+        {
+            _impulseSource.GenerateImpulse(Vector3.right * 0.1f);
+            _hasShaked = true;
+        }
     }
 }

@@ -18,20 +18,21 @@ public class Inventory : MonoBehaviour
 
     void Awake()
     {
-        CopyData(_head, _headRuntime);
-        CopyData(_armor, _armorRuntime);
-        CopyData(_shield, _shieldRuntime);
-        CopyData(_weapon, _weaponRuntime);
+        _headRuntime = CopyData(_head);
+        _armorRuntime = CopyData(_armor);
+        _shieldRuntime = CopyData(_shield);
+        _weaponRuntime = CopyData(_weapon);
     }
 
     // so 복제본 생성
-    private void CopyData(List<EquipmentData> data, List<EquipmentData> runtime)
+    private List<EquipmentData> CopyData(List<EquipmentData> data)
     {
-        runtime = new List<EquipmentData>();
+        List<EquipmentData> runtime = new List<EquipmentData>();
         foreach (var original in data)
         {
             runtime.Add(Instantiate(original));
         }
+        return runtime;
     }
 
     // 장착

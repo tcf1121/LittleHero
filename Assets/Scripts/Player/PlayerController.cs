@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private Coroutine _attackCor;
     private Coroutine _dashCor;
     private Coroutine _comeBackCor;
+    private Vector3 zeroZone = new Vector3(-7, 0, 0);
     [SerializeField] private Collider2D attackColl;
 
     // Start is called before the first frame update
@@ -35,7 +36,6 @@ public class PlayerController : MonoBehaviour
             Debug.Log("공격");
             _attackCor = StartCoroutine(AttackCoroutine());
         }
-
     }
 
     private void OnDash()
@@ -128,17 +128,20 @@ public class PlayerController : MonoBehaviour
             Debug.Log("몬스터 발견, 좌표 " + target);
         }
 
-        float duration = 0.5f;
+        transform.localScale = new Vector3(1.5f, 0.8f, 1f);
+        float duration = 0.2f;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration && _isDash)
         {
             float t = elapsedTime / duration;
-            transform.position = Vector3.Lerp(startPos, target, t);
+            float easedT = Mathf.Sin(t * Mathf.PI * 0.5f);
+            transform.position = Vector3.Lerp(startPos, target, easedT);
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        transform.localScale = Vector3.one;
         player.Rigid.velocity = Vector2.zero;
         float currentTime = 0.5f;
         while (currentTime > 0.0f)
@@ -159,20 +162,28 @@ public class PlayerController : MonoBehaviour
     public IEnumerator ComebackCoroutine()
     {
         Vector3 startPos = transform.position;
-        Vector3 zeroZone = new Vector3(-7, 0, 0);
-        float duration = 0.5f;
+
+        float duration = 0.15f;
         float elapsedTime = 0f;
+
+        transform.localScale = new Vector3(0.7f, 1.3f, 1f);
 
         while (elapsedTime < duration)
         {
-            float t = elapsedTime / duration;
-            transform.position = Vector3.Lerp(startPos, zeroZone, t);
             elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+
+            float easedT = 1f - Mathf.Pow(1f - t, 3);
+            transform.position = Vector3.Lerp(startPos, zeroZone, easedT);
             yield return null;
         }
         transform.position = zeroZone;
+        transform.localScale = new Vector3(1.2f, 0.8f, 1f);
+        yield return new WaitForSeconds(0.03f);
+
+        transform.localScale = Vector3.one;
         player.Rigid.velocity = Vector2.zero;
-        StopCoroutine(_comeBackCor);
+
         _comeBackCor = null;
     }
 
@@ -232,15 +243,36 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator AttackCoroutine()
     {
-        float currentTime = 0.2f;
+        Vector3 startPos = transform.position;
+        Vector3 attackPos = startPos + transform.right * 0.4f;
+        transform.localScale = new Vector3(1.3f, 0.8f, 1f);
         attackColl.enabled = true;
-        while (currentTime > 0.0f)
+        float duration = 0.1f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
         {
-            currentTime -= Time.deltaTime;
-            yield return new WaitForFixedUpdate();
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+
+            float easedT = Mathf.Sin(t * Mathf.PI * 0.5f);
+            transform.position = Vector3.Lerp(startPos, attackPos, easedT);
+
+            yield return null;
         }
+        float returnTime = 0.1f;
+        float eTime = 0f;
+        Vector3 recoverPos = transform.position - transform.right * 0.1f;
+
+        while (eTime < returnTime)
+        {
+            eTime += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(new Vector3(1.3f, 0.8f, 1f), Vector3.one, eTime / returnTime);
+            yield return null;
+        }
+        transform.position = startPos;
         attackColl.enabled = false;
-        StopCoroutine(_attackCor);
+
         _attackCor = null;
     }
 
