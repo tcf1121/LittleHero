@@ -319,6 +319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StageMonsterNum: 0
   ChestNum: 0
+  _ingameBGM: {fileID: 8300000, guid: 083166a1b56c1364187cfee46c043735, type: 3}
   _monterNumUI: {fileID: 1114724445}
   _chestNumUI: {fileID: 350074176}
   _finUI: {fileID: 895976032}
@@ -7224,6 +7225,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackColl: {fileID: 1009328503}
+  _attackSFX: {fileID: 8300000, guid: 323e15cfe809e114ab92c9f4b25e8bc2, type: 3}
+  _dashSFX: {fileID: 8300000, guid: 4e349dc959014a845b9aa317d1c2b7f0, type: 3}
+  _parryingSFX: {fileID: 8300000, guid: b7b5a6156961bac44a67504d42ce6fcf, type: 3}
 --- !u!50 &2107431103
 Rigidbody2D:
   serializedVersion: 4
@@ -7439,10 +7443,6 @@ PrefabInstance:
     - target: {fileID: 3333494863718796286, guid: 38e09f51bd9433b49b15a69bdd6e4bb8, type: 3}
       propertyPath: m_Name
       value: GameManager(Test)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7880803971526510747, guid: 38e09f51bd9433b49b15a69bdd6e4bb8, type: 3}
-      propertyPath: CurrentStage
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7960405414178867643, guid: 38e09f51bd9433b49b15a69bdd6e4bb8, type: 3}
       propertyPath: m_LocalPosition.x

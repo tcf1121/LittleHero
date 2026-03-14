@@ -2093,6 +2093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d824c48781eee264eb2e8849798c280d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lobbyBGM: {fileID: 8300000, guid: adaa84fa37a7fe341bf67adcfc0c2f35, type: 3}
   _gameStartBtn: {fileID: 1733715223}
   _stageNum: {fileID: 1422126659}
 --- !u!1001 &794800999

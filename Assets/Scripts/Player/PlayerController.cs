@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     private Coroutine _comeBackCor;
     private Vector3 zeroZone = new Vector3(-7, 0, 0);
     [SerializeField] private Collider2D attackColl;
+    [SerializeField] private AudioClip _attackSFX;
+    [SerializeField] private AudioClip _dashSFX;
+    [SerializeField] private AudioClip _parryingSFX;
 
     // Start is called before the first frame update
     void Start()
@@ -131,7 +134,7 @@ public class PlayerController : MonoBehaviour
         transform.localScale = new Vector3(1.5f, 0.8f, 1f);
         float duration = 0.2f;
         float elapsedTime = 0f;
-
+        SoundManager.Instance.PlaySFX(_dashSFX);
         while (elapsedTime < duration && _isDash)
         {
             float t = elapsedTime / duration;
@@ -165,7 +168,7 @@ public class PlayerController : MonoBehaviour
 
         float duration = 0.15f;
         float elapsedTime = 0f;
-
+        SoundManager.Instance.PlaySFX(_dashSFX);
         transform.localScale = new Vector3(0.7f, 1.3f, 1f);
 
         while (elapsedTime < duration)
@@ -198,6 +201,7 @@ public class PlayerController : MonoBehaviour
         float duration = 0.5f;
         float elapsedTime = 0f;
 
+
         while (elapsedTime < duration)
         {
 
@@ -223,7 +227,7 @@ public class PlayerController : MonoBehaviour
     {
         _isParrying = false;
         _isDash = false;
-
+        SoundManager.Instance.PlaySFX(_parryingSFX);
         // 일반 몬스터가 아닌 경우 해당하는 몬스터만 밀기
         if (target.GetMonsterType() != MonsterType.Normal)
         {
@@ -260,6 +264,7 @@ public class PlayerController : MonoBehaviour
 
             yield return null;
         }
+        SoundManager.Instance.PlaySFX(_attackSFX);
         float returnTime = 0.1f;
         float eTime = 0f;
         Vector3 recoverPos = transform.position - transform.right * 0.1f;

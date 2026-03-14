@@ -10,6 +10,7 @@ public class InGameManager : MonoBehaviour
     public int StageMonsterNum;
     public int ChestNum;
     public UnityAction DieMonster;
+    [SerializeField] private AudioClip _ingameBGM;
     [SerializeField] private TMP_Text _monterNumUI;
     [SerializeField] private TMP_Text _chestNumUI;
     [SerializeField] private FinUI _finUI;
@@ -22,6 +23,11 @@ public class InGameManager : MonoBehaviour
         DieMonster += CheckMonster;
         StageMonsterNum = 0;
         ChestNum = 0;
+    }
+
+    void Start()
+    {
+        SoundManager.Instance.PlayBGM(_ingameBGM);
     }
 
     public void SetMonNum()
