@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// 플레이어 관리
 public class Player : MonoBehaviour
 {
     private PlayerController _playerController;
@@ -15,8 +14,6 @@ public class Player : MonoBehaviour
     public Rigidbody2D Rigid { get { return _rigid; } }
     public Collider2D Collider { get { return _collider; } }
 
-    // Start is called before the first frame update
-
     void Awake()
     {
         _playerController = GetComponent<PlayerController>();
@@ -26,14 +23,4 @@ public class Player : MonoBehaviour
         _collider = GetComponent<Collider2D>();
     }
 
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

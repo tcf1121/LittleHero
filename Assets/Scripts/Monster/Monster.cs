@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-//[RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(BoxCollider2D))]
-[RequireComponent(typeof(Rigidbody2D))]
+// 몬스터 관련
 public class Monster : MonoBehaviour
 {
     [SerializeField] private Material _whiteFlashMat;
@@ -48,6 +45,7 @@ public class Monster : MonoBehaviour
         }
     }
 
+    // 오브젝트 풀에서 몬스터 외형을 바꾸기
     public void Init(MonsterData data)
     {
         // 기본 스탯 복사
@@ -116,7 +114,7 @@ public class Monster : MonoBehaviour
     }
 
 
-
+    // 죽을 때 실행
     private void Die()
     {
         InGameManager.Instance.DieMonster?.Invoke();
@@ -146,6 +144,7 @@ public class Monster : MonoBehaviour
         _flashCor = null;
     }
 
+    // 패링할 때 실행되는 넉백
     public void Knockback(int push)
     {
         float pushForce = 0;
@@ -179,12 +178,13 @@ public class Monster : MonoBehaviour
     }
 
 
+    // 몬스터 종류 반환
     public MonsterType GetMonsterType()
     {
         return _monsterType;
     }
 
-
+    // 상자 드롭
     public void DropChest()
     {
         int looting = 5;
@@ -211,14 +211,15 @@ public class Monster : MonoBehaviour
         }
     }
 
+    // 속도 바꾸기
     public void SetMoveSpeed(float newSpeed)
     {
         _moveSpeed = newSpeed;
     }
 
+    // 현재 속도
     public float GetInitialMoveSpeed()
     {
-        // 필요하다면 SO 데이터에서 원래 속도를 가져올 수 있습니다.
         return _moveSpeed;
     }
 }

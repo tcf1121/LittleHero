@@ -1,7 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+
+// 상자 오브젝트에 관련된 코드
 public class ChestObj : MonoBehaviour
 {
     private Coroutine _disappearCor;
@@ -11,12 +12,14 @@ public class ChestObj : MonoBehaviour
         _spwan = false;
     }
 
+
     void OnEnable()
     {
         if (_spwan)
             _disappearCor = StartCoroutine(DisappearCoroutine());
     }
 
+    // 오브젝트 풀링으로 생성할 때는 코루틴이 실행되지 않게
     void OnDisable()
     {
         if (!_spwan) _spwan = true;

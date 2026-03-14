@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 몬스터 스포너
 public class MonsterSpawner : MonoBehaviour
 {
+    // 몬스터 종류에 따라 q를 나눔 (다른 종류의 몬스터끼리는 서로 겹칠 수 있음)
     private Queue<MonsterData> _NspawnQueue = new Queue<MonsterData>();
     private Queue<MonsterData> _EspawnQueue = new Queue<MonsterData>();
     private Queue<MonsterData> _BspawnQueue = new Queue<MonsterData>();
     private Vector2 spawnPos;
 
-    // Start is called before the first frame update
     void Start()
     {
         GenerateQueue(GameManager.Instance.GetStage().NmonsterList, _NspawnQueue);

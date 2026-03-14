@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 인벤토리 UI
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] List<EquipBtn> _headEquipBtns;
@@ -22,6 +22,7 @@ public class InventoryUI : MonoBehaviour
         GenerateList(_weaponEquipBtns, GameManager.Instance.Inventory.GetEquipList(3));
     }
 
+    // 장비 아이콘 새로고침 (획득 여부, 장착 여부)
     private void GenerateList(List<EquipBtn> equipBtns, List<EquipmentData> equipment)
     {
         for (int i = 0; i < equipBtns.Count; i++)
@@ -30,6 +31,7 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
+    // 장비 장착 현황 새로고침
     private void RefreshList(EquipmentData equipment)
     {
         switch (equipment.equipType)

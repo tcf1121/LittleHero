@@ -1,8 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
+// 플레이어 입력 및 움직임
 public class PlayerController : MonoBehaviour
 {
     private Player player;
@@ -17,19 +16,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip _dashSFX;
     [SerializeField] private AudioClip _parryingSFX;
 
-    // Start is called before the first frame update
     void Start()
     {
         player = GetComponent<Player>();
         _attackCor = null;
         _dashCor = null;
         _comeBackCor = null;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     private void OnAttack()
@@ -124,9 +116,11 @@ public class PlayerController : MonoBehaviour
         Vector3 startPos = transform.position;
         Vector3 target = new Vector3(7, 0, 0);
 
+        // 오른쪽 보기
         RaycastHit2D hit = Physics2D.Raycast(transform.position + Vector3.up, transform.right, 20f);
         if (hit.collider != null && hit.collider.gameObject.CompareTag("Monster"))
         {
+            // 만난 지점의 좌표 저장
             target = hit.point + Vector2.down;
             Debug.Log("몬스터 발견, 좌표 " + target);
         }
@@ -134,7 +128,10 @@ public class PlayerController : MonoBehaviour
         transform.localScale = new Vector3(1.5f, 0.8f, 1f);
         float duration = 0.2f;
         float elapsedTime = 0f;
+        // 소리 재생
         SoundManager.Instance.PlaySFX(_dashSFX);
+
+        // 저장한 좌표로 대쉬
         while (elapsedTime < duration && _isDash)
         {
             float t = elapsedTime / duration;
@@ -146,6 +143,7 @@ public class PlayerController : MonoBehaviour
         }
         transform.localScale = Vector3.one;
         player.Rigid.velocity = Vector2.zero;
+        // 딜레이 주기
         float currentTime = 0.5f;
         while (currentTime > 0.0f)
         {
@@ -204,11 +202,12 @@ public class PlayerController : MonoBehaviour
 
         while (elapsedTime < duration)
         {
-
+            // 주변 확인
             Collider2D hit = Physics2D.OverlapCircle(transform.position, 1.5f, monsterLayer);
-
+            // 뭔가 있다
             if (hit != null)
             {
+                // 그게 몬스터라면
                 if (MonsterRegistry.ColliderMonster.TryGetValue(hit, out Monster targetMonster))
                 {
                     Debug.Log("패링 성공: " + targetMonster.name);
@@ -227,6 +226,7 @@ public class PlayerController : MonoBehaviour
     {
         _isParrying = false;
         _isDash = false;
+        // 소리 재생
         SoundManager.Instance.PlaySFX(_parryingSFX);
         // 일반 몬스터가 아닌 경우 해당하는 몬스터만 밀기
         if (target.GetMonsterType() != MonsterType.Normal)
@@ -245,15 +245,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // 공격하는 모션
     private IEnumerator AttackCoroutine()
     {
+        // 앞으로 조금 나가는 듯한 효과를 주어 칼을 휘두르는 느낌
         Vector3 startPos = transform.position;
         Vector3 attackPos = startPos + transform.right * 0.4f;
         transform.localScale = new Vector3(1.3f, 0.8f, 1f);
         attackColl.enabled = true;
         float duration = 0.1f;
         float elapsedTime = 0f;
-
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
@@ -264,11 +265,13 @@ public class PlayerController : MonoBehaviour
 
             yield return null;
         }
+        // 소리 재생
         SoundManager.Instance.PlaySFX(_attackSFX);
         float returnTime = 0.1f;
         float eTime = 0f;
         Vector3 recoverPos = transform.position - transform.right * 0.1f;
 
+        // 원래 자리로 돌아가기
         while (eTime < returnTime)
         {
             eTime += Time.deltaTime;

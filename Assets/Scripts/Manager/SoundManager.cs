@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// 사운드 관리
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
@@ -16,6 +17,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    // 효과음 재생
     public void PlaySFX(AudioClip clip)
     {
         if (clip != null)
@@ -24,9 +26,11 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    // 배경음 재생
     public void PlayBGM(AudioClip clip, bool loop = true)
     {
-        if (bgmSource.clip == clip) return; // 이미 같은 곡이 재생 중이면 무시
+        // 이미 같은 곡이 재생 중이면 무시
+        if (bgmSource.clip == clip) return;
 
         bgmSource.Stop();
         bgmSource.clip = clip;

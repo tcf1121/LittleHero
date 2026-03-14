@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 [System.Serializable]
 public class MonsterCount
@@ -9,6 +9,7 @@ public class MonsterCount
     public int count;        // 소환할 마리수
 }
 
+// 스테이지에 대한 정보 SO
 [CreateAssetMenu(fileName = "StageData", menuName = "SO/StageData")]
 public class StageData : ScriptableObject
 {

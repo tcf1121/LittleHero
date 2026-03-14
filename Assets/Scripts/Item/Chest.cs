@@ -1,15 +1,16 @@
 using UnityEngine;
 
+// 상자 개수 관리하는 코드
 public class Chest : MonoBehaviour
 {
     [SerializeField] private int _chestNum;
-    // Start is called before the first frame update
+
+
     void Start()
     {
         _chestNum = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
 

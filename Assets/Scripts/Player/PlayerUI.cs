@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 플레이어와 관련된 상태 UI 관리
 public class PlayerUI : MonoBehaviour
 {
     [Header("State")]

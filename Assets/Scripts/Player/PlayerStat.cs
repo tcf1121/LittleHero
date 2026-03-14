@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+// 플레이어 스탯
 public struct PlayerStat
 {
     public int Hp;

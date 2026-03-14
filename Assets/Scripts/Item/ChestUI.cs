@@ -1,9 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+// 상자깡 UI 관리 코드
 public class ChestUI : MonoBehaviour
 {
     [SerializeField] private Button _chestBtn;
@@ -23,11 +24,13 @@ public class ChestUI : MonoBehaviour
         RefreshNum();
     }
 
+    // 개수 새로고침
     private void RefreshNum()
     {
         _chestNum.text = "X" + GameManager.Instance.Chest.GetChestNum();
     }
 
+    // 상자 열기 (클릭 할 때 실행)
     private void OpenChest()
     {
         if (GameManager.Instance.Chest.CheckChestNum())

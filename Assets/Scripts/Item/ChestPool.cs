@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// 상자 관련 오브젝트 풀
 public class ChestPool : MonoBehaviour
 {
     public static ChestPool Instance;

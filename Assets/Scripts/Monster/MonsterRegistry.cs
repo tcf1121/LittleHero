@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,7 +25,8 @@ public static class MonsterRegistry
     public static void UnRegister(Monster monster, Collider2D collider)
     {
         ColliderMonster.Remove(collider);
-        NormalMonsters.Remove(monster);
+        if (monster.GetMonsterType() == MonsterType.Normal)
+            NormalMonsters.Remove(monster);
     }
 
     // 게임 한 판이 끝나면 실행할 함수

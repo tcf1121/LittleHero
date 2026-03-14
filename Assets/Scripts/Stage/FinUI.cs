@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+// 스테이지가 끝났을 때 UI
 public class FinUI : MonoBehaviour
 {
     [SerializeField] private GameObject _clearUI;

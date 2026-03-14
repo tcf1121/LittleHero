@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// 몬스터 정보에 대한 SO
 [CreateAssetMenu(fileName = "NewMonsterData", menuName = "SO/MonsterData")]
 public class MonsterData : ScriptableObject
 {

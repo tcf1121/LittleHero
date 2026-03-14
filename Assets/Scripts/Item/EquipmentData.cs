@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+
+// 장비 데이터 so
 [CreateAssetMenu(fileName = "NewEquipData", menuName = "SO/EquipData")]
 public class EquipmentData : ScriptableObject
 {

@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// 오우거 패턴
 public class OgrePattern : MonoBehaviour, IBossPattern
 {
     private Monster _monster;

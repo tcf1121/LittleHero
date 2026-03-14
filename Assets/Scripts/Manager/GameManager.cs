@@ -1,8 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+// 게임 총괄
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         Installing += _inventory.Equip;
     }
 
-
+    // 스테이지 정보 가져오기
     public StageData GetStage()
     {
         return _stages[CurrentStage];

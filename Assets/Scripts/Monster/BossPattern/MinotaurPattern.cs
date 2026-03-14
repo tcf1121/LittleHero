@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+// 미노타우로스 패턴
 public class MinotaurPattern : MonoBehaviour, IBossPattern
 {
     private Monster _monster;

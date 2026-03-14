@@ -1,7 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// 인벤토리 관련 코드
 public class Inventory : MonoBehaviour
 {
     [SerializeField] private List<EquipmentData> _head;
@@ -92,11 +93,13 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    // 장비로 얻은 스탯 반환
     public PlayerStat GetStat()
     {
         return _equippedStat;
     }
 
+    // 장비들 정보 반환
     public List<EquipmentData> GetEquipList(int index)
     {
         if (index == 0) return _headRuntime;

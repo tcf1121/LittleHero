@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+// 현재 플레이어의 상태 관리
 public class PlayerStats : MonoBehaviour
 {
     private Player player;

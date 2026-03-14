@@ -1,9 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
+// 인게임(전투) 관리
 public class InGameManager : MonoBehaviour
 {
     public static InGameManager Instance;
@@ -15,7 +15,6 @@ public class InGameManager : MonoBehaviour
     [SerializeField] private TMP_Text _chestNumUI;
     [SerializeField] private FinUI _finUI;
 
-    // Start is called before the first frame update
     void Awake()
     {
         Time.timeScale = 1f;
@@ -25,21 +24,26 @@ public class InGameManager : MonoBehaviour
         ChestNum = 0;
     }
 
+
     void Start()
     {
+        // 배경음 재생
         SoundManager.Instance.PlayBGM(_ingameBGM);
     }
 
+    // 몬스터 수 UI에 적용
     public void SetMonNum()
     {
         _monterNumUI.text = StageMonsterNum.ToString();
     }
 
+    // 상자 나왔을 때 실행
     public void DropChest()
     {
         ChestNum++;
     }
 
+    // 게임이 끝나고 UI 보여주기
     public void ShowFinUI(bool clear)
     {
         StartCoroutine(WaitCor(clear));
@@ -56,10 +60,12 @@ public class InGameManager : MonoBehaviour
         GameManager.Instance.Chest.GetChest(ChestNum);
     }
 
+    // 몬스터가 죽었을 때 실행
     private void CheckMonster()
     {
         StageMonsterNum--;
         _monterNumUI.text = StageMonsterNum.ToString();
+        // 몬스터를 다 죽이면 끝내기
         if (StageMonsterNum <= 0)
         {
             ShowFinUI(true);

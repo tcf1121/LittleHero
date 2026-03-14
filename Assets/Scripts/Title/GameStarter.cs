@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// 타이틀 화면에서 실행되는 클래스
 public class GameStarter : MonoBehaviour
 {
     [SerializeField] private AudioClip _titleBGM;
-    // Start is called before the first frame update
+
     void Start()
     {
+        // 배경음 재생
         SoundManager.Instance.PlayBGM(_titleBGM);
     }
 
-    // Update is called once per frame
+    // 아무 키나 누르면 로비로 이동
     void Update()
     {
         if (Input.anyKey)
