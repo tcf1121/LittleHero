@@ -1,26 +1,34 @@
 using System.Collections;
+using Cinemachine;
 using UnityEngine;
 
 // 플레이어 입력 및 움직임
 public class PlayerController : MonoBehaviour
 {
-    private Player player;
+    public Player Player { get { return _player; } }
+    public GameObject SkillRange;
+    private CinemachineImpulseSource _impulseSource;
+    private Player _player;
     private bool _isDash = false;
-    private bool _isParrying = false;
     private Coroutine _attackCor;
     private Coroutine _dashCor;
+    private Coroutine _parryCor;
     private Coroutine _comeBackCor;
     private Vector3 zeroZone = new Vector3(-7, 0, 0);
     [SerializeField] private Collider2D attackColl;
+    [SerializeField] private GameObject _darkOverlay;
     [SerializeField] private AudioClip _attackSFX;
     [SerializeField] private AudioClip _dashSFX;
     [SerializeField] private AudioClip _parryingSFX;
+    [SerializeField] private SkillBase[] _skillSlots = new SkillBase[4];
 
     void Start()
     {
-        player = GetComponent<Player>();
+        _player = GetComponent<Player>();
+        _impulseSource = GetComponent<CinemachineImpulseSource>();
         _attackCor = null;
         _dashCor = null;
+        _parryCor = null;
         _comeBackCor = null;
     }
 
@@ -39,6 +47,12 @@ public class PlayerController : MonoBehaviour
         Debug.Log("대쉬");
         if (_dashCor == null)
         {
+            if (_parryCor != null)
+            {
+                StopCoroutine(_parryCor);
+                _parryCor = null;
+            }
+
             _dashCor = StartCoroutine(DashCoroutine());
         }
     }
@@ -46,8 +60,8 @@ public class PlayerController : MonoBehaviour
     private void OnParrying()
     {
         Debug.Log("막기");
-        if (_isParrying) return;
-        StartCoroutine(ParryCoroutine());
+        if (_parryCor != null) return;
+        _parryCor = StartCoroutine(ParryCoroutine());
     }
 
     public void Parrying()
@@ -55,44 +69,48 @@ public class PlayerController : MonoBehaviour
         Debug.Log("처절한 막기");
         transform.position = new Vector3(-7.5f, 0, 0);
         StopAllCoroutines();
-        if (_isParrying) return;
-        StartCoroutine(ParryCoroutine());
+        if (_parryCor != null) return;
+        _parryCor = StartCoroutine(ParryCoroutine());
     }
 
     private void OnSkill1()
     {
-        if (player.PlayerStats.CheckMana(10))
+        if (_player.PlayerStats.CheckMana(_skillSlots[0].UseMana))
         {
             Debug.Log("스킬 1 사용");
-            player.PlayerStats.UseMana(10);
+            _player.PlayerStats.UseMana(_skillSlots[0].UseMana);
+            UseSkill(0);
         }
     }
 
     private void OnSkill2()
     {
-        if (player.PlayerStats.CheckMana(20))
+        if (_player.PlayerStats.CheckMana(_skillSlots[1].UseMana))
         {
             Debug.Log("스킬 2 사용");
-            player.PlayerStats.UseMana(20);
+            _player.PlayerStats.UseMana(_skillSlots[1].UseMana);
+            UseSkill(1);
         }
     }
 
 
     private void OnSkill3()
     {
-        if (player.PlayerStats.CheckMana(30))
+        if (_player.PlayerStats.CheckMana(_skillSlots[2].UseMana))
         {
             Debug.Log("스킬 3 사용");
-            player.PlayerStats.UseMana(30);
+            _player.PlayerStats.UseMana(_skillSlots[2].UseMana);
+            UseSkill(2);
         }
     }
 
     private void OnSkill4()
     {
-        if (player.PlayerStats.CheckMana(20))
+        if (_player.PlayerStats.CheckMana(_skillSlots[3].UseMana))
         {
             Debug.Log("스킬 4 사용");
-            player.PlayerStats.UseMana(20);
+            _player.PlayerStats.UseMana(_skillSlots[3].UseMana);
+            UseSkill(3);
         }
     }
 
@@ -142,7 +160,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         transform.localScale = Vector3.one;
-        player.Rigid.velocity = Vector2.zero;
+        _player.Rigid.velocity = Vector2.zero;
         // 딜레이 주기
         float currentTime = 0.5f;
         while (currentTime > 0.0f)
@@ -152,7 +170,6 @@ public class PlayerController : MonoBehaviour
         }
 
         _isDash = false;
-        StopCoroutine(_dashCor);
         _dashCor = null;
     }
 
@@ -183,7 +200,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.03f);
 
         transform.localScale = Vector3.one;
-        player.Rigid.velocity = Vector2.zero;
+        _player.Rigid.velocity = Vector2.zero;
 
         _comeBackCor = null;
     }
@@ -195,10 +212,8 @@ public class PlayerController : MonoBehaviour
     private IEnumerator ParryCoroutine()
     {
         int monsterLayer = LayerMask.GetMask("Monster");
-        _isParrying = true;
         float duration = 0.5f;
         float elapsedTime = 0f;
-
 
         while (elapsedTime < duration)
         {
@@ -219,25 +234,29 @@ public class PlayerController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        _isParrying = false;
+        _parryCor = null;
     }
 
     private void SuccessParry(Monster target)
     {
-        _isParrying = false;
+        if (_parryCor != null)
+        {
+            StopCoroutine(_parryCor);
+            _parryCor = null;
+        }
         _isDash = false;
         // 소리 재생
         SoundManager.Instance.PlaySFX(_parryingSFX);
         // 일반 몬스터가 아닌 경우 해당하는 몬스터만 밀기
         if (target.GetMonsterType() != MonsterType.Normal)
         {
-            target.Knockback(player.PlayerStats.Push);
+            target.Knockback(_player.PlayerStats.Push);
         }
 
         // 모든 일반 몬스터 밀기
         for (int i = MonsterRegistry.NormalMonsters.Count - 1; i >= 0; i--)
         {
-            MonsterRegistry.NormalMonsters[i].Knockback(player.PlayerStats.Push);
+            MonsterRegistry.NormalMonsters[i].Knockback(_player.PlayerStats.Push);
         }
         if (_comeBackCor == null)
         {
@@ -289,10 +308,30 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Monster"))
         {
-            if (!_isParrying)
+            if (_parryCor == null)
             {
-                player.Rigid.velocity = Vector2.zero;
+                _player.Rigid.velocity = Vector2.zero;
             }
         }
     }
+
+    #region 스킬 연출
+    public GameObject GetOverlay()
+    {
+        return _darkOverlay;
+    }
+
+    private void UseSkill(int index)
+    {
+        if (_skillSlots[index] != null)
+        {
+            StartCoroutine(_skillSlots[index].Execute(this));
+        }
+    }
+
+    public void ShakeCam(Vector3 direction, float power)
+    {
+        _impulseSource.GenerateImpulse(direction * power);
+    }
+    #endregion
 }

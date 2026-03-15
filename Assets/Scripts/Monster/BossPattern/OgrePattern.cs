@@ -45,7 +45,7 @@ public class OgrePattern : MonoBehaviour, IBossPattern
             {
                 // M
                 // 맵에 있는 일반 몬스터 속도 2배
-                float currentSpeed = normalMonster.GetInitialMoveSpeed();
+                float currentSpeed = normalMonster.GetMoveSpeed();
                 normalMonster.SetMoveSpeed(currentSpeed * 2f);
 
                 Debug.Log($"{normalMonster.name} 가속 적용됨");

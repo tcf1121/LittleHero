@@ -1,13 +1,18 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 // 인벤토리 UI
 public class InventoryUI : MonoBehaviour
 {
-    [SerializeField] List<EquipBtn> _headEquipBtns;
-    [SerializeField] List<EquipBtn> _armorEquipBtns;
-    [SerializeField] List<EquipBtn> _shieldEquipBtns;
-    [SerializeField] List<EquipBtn> _weaponEquipBtns;
+    [SerializeField] private List<EquipBtn> _headEquipBtns;
+    [SerializeField] private List<EquipBtn> _armorEquipBtns;
+    [SerializeField] private List<EquipBtn> _shieldEquipBtns;
+    [SerializeField] private List<EquipBtn> _weaponEquipBtns;
+    [SerializeField] private TMP_Text _manaText;
+    [SerializeField] private TMP_Text _hpText;
+    [SerializeField] private TMP_Text _pushText;
+    [SerializeField] private TMP_Text _damageText;
 
     void Start()
     {
@@ -38,15 +43,19 @@ public class InventoryUI : MonoBehaviour
         {
             case EquipmentType.Head:
                 GenerateList(_headEquipBtns, GameManager.Instance.Inventory.GetEquipList(0));
+                _manaText.text = GameManager.Instance.Inventory.GetStat().MpRegen.ToString();
                 break;
             case EquipmentType.Armor:
                 GenerateList(_armorEquipBtns, GameManager.Instance.Inventory.GetEquipList(1));
+                _hpText.text = GameManager.Instance.Inventory.GetStat().Hp.ToString();
                 break;
             case EquipmentType.Shield:
                 GenerateList(_shieldEquipBtns, GameManager.Instance.Inventory.GetEquipList(2));
+                _pushText.text = GameManager.Instance.Inventory.GetStat().Push.ToString();
                 break;
             case EquipmentType.Weapon:
                 GenerateList(_weaponEquipBtns, GameManager.Instance.Inventory.GetEquipList(3));
+                _damageText.text = GameManager.Instance.Inventory.GetStat().Damage.ToString();
                 break;
             default:
                 break;

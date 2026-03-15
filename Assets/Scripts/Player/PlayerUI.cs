@@ -13,6 +13,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TMP_Text _maxMpText;
     [SerializeField] private TMP_Text _curMpText;
     [SerializeField] private GameObject _damageUI;
+    [SerializeField] private GameObject[] _skills;
 
 
     public void SetHp(int currentHp, int maxHp)
@@ -27,6 +28,15 @@ public class PlayerUI : MonoBehaviour
         _curMpText.text = currentMp.ToString();
         _maxMpText.text = maxMp.ToString();
         _fillMp.fillAmount = (float)currentMp / maxMp;
+        SetSkill(currentMp);
+    }
+
+    private void SetSkill(int currentMp)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            _skills[i].SetActive(currentMp < (i + 1) * 10);
+        }
     }
 
     public void TakeDamage()

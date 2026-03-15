@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a339c056691e7347a46ab8739f98d1e, type: 3}
+  m_Name: ThunderFlash
+  m_EditorClassIdentifier: 
+  SkillName: ThunderFlash
+  UseMana: 40
+  DamageMultiplier: 4
+  ActivationSound: {fileID: 8300000, guid: c91fcf414acc0344cb03b13996f1bf3b, type: 3}
+  _readySound: {fileID: 8300000, guid: f1cb5d83282f2904a85f73111d068616, type: 3}

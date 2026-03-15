@@ -218,8 +218,13 @@ public class Monster : MonoBehaviour
     }
 
     // 현재 속도
-    public float GetInitialMoveSpeed()
+    public float GetMoveSpeed()
     {
         return _moveSpeed;
+    }
+
+    public void SetColor(Color color)
+    {
+        _spriteRenderer.color = color;
     }
 }
